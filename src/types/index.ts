@@ -99,15 +99,6 @@ export interface LearningGoal {
   practicalTarget: string;
 }
 
-export type ThemePreset = 'obsidian' | 'paper' | 'aurora' | 'arctic' | 'midnight' | 'sunset';
-
-export interface AppearanceSettings {
-  preset: ThemePreset;
-  customAccent: string;
-  glassOpacity: number;
-  spotlightEnabled: boolean;
-  motionEnabled: boolean;
-}
 
 declare global {
   interface Window {

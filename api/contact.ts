@@ -4,10 +4,11 @@ export const config = {
   runtime: 'nodejs',
 };
 
-// In-memory rate limiting map for fallback when Redis is unconfigured
+// In-memory rate limiting map for local development fallback
 const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000; // 10 minutes
 const MAX_REQUESTS_PER_WINDOW = 5;
+const MAX_PAYLOAD_BYTES = 10240; // 10KB max payload limit
 
 // Strict Zod schema for client inquiry validation
 const contactSchema = z.object({
@@ -28,6 +29,26 @@ function sanitizeHtml(str: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+function isAllowedOrigin(urlStr: string | null, hostHeader: string | null): boolean {
+  if (!urlStr) return true; // Same-origin if header not explicitly set
+  try {
+    const parsed = new URL(urlStr);
+    const hostname = parsed.hostname;
+    // Allow local development
+    if (hostname === 'localhost' || hostname === '127.0.0.1') return true;
+    // Allow Vercel preview and production deployments
+    if (hostname.endsWith('.vercel.app')) return true;
+    // Allow host match if custom domain is configured
+    if (hostHeader) {
+      const hostWithoutPort = hostHeader.split(':')[0];
+      if (hostname === hostWithoutPort) return true;
+    }
+    return false;
+  } catch {
+    return false;
+  }
 }
 
 async function verifyTurnstile(token: string, secretKey: string, ip: string): Promise<boolean> {
@@ -53,14 +74,13 @@ async function verifyTurnstile(token: string, secretKey: string, ip: string): Pr
   }
 }
 
-async function checkRateLimit(ip: string): Promise<boolean> {
+async function checkRateLimit(ip: string, isProduction: boolean): Promise<{ allowed: boolean; unconfigured?: boolean }> {
   const upstashUrl = process.env.UPSTASH_REDIS_REST_URL;
   const upstashToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
   if (upstashUrl && upstashToken) {
     try {
       const key = `ratelimit:contact:${ip}`;
-      // Increment counter and set TTL if new
       const res = await fetch(`${upstashUrl}/incr/${key}`, {
         headers: { Authorization: `Bearer ${upstashToken}` },
       });
@@ -73,31 +93,39 @@ async function checkRateLimit(ip: string): Promise<boolean> {
         });
       }
 
-      return count <= MAX_REQUESTS_PER_WINDOW;
+      return { allowed: count <= MAX_REQUESTS_PER_WINDOW };
     } catch (e) {
-      console.error('Upstash rate limit check failed, falling back to in-memory:', e);
+      console.error('Upstash rate limit check failed:', e);
+      if (isProduction) {
+        return { allowed: false, unconfigured: true };
+      }
     }
   }
 
-  // Fallback in-memory rate limiting
+  // In production, require Upstash rate limiting rather than unreliable distributed in-memory instances
+  if (isProduction) {
+    return { allowed: false, unconfigured: true };
+  }
+
+  // Fallback in-memory rate limiting for local development testing only
   const now = Date.now();
   const record = rateLimitMap.get(ip);
 
   if (!record || now > record.resetTime) {
     rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
-    return true;
+    return { allowed: true };
   }
 
   if (record.count >= MAX_REQUESTS_PER_WINDOW) {
-    return false;
+    return { allowed: false };
   }
 
   record.count += 1;
-  return true;
+  return { allowed: true };
 }
 
 export default async function handler(req: Request): Promise<Response> {
-  // Only accept POST requests
+  // 1. Method check: Only POST allowed
   if (req.method !== 'POST') {
     return new Response(JSON.stringify({ success: false, error: 'Method not allowed' }), {
       status: 405,
@@ -105,14 +133,57 @@ export default async function handler(req: Request): Promise<Response> {
     });
   }
 
+  // 2. Request payload size check before reading body
+  const contentLength = req.headers.get('content-length');
+  if (contentLength && parseInt(contentLength, 10) > MAX_PAYLOAD_BYTES) {
+    return new Response(
+      JSON.stringify({ success: false, error: 'Payload exceeds maximum limit (10KB).' }),
+      { status: 413, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // 3. Content-Type check
+  const contentType = req.headers.get('content-type');
+  if (!contentType || !contentType.toLowerCase().includes('application/json')) {
+    return new Response(
+      JSON.stringify({ success: false, error: 'Content-Type must be application/json' }),
+      { status: 415, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
+  // 4. Origin & Referer checks to prevent cross-origin resource abuse
+  const origin = req.headers.get('origin');
+  const referer = req.headers.get('referer');
+  const host = req.headers.get('host');
+
+  if ((origin && !isAllowedOrigin(origin, host)) || (referer && !isAllowedOrigin(referer, host))) {
+    return new Response(
+      JSON.stringify({ success: false, error: 'Forbidden: Unauthorized request origin.' }),
+      { status: 403, headers: { 'Content-Type': 'application/json' } }
+    );
+  }
+
   try {
     const clientIp = req.headers.get('x-forwarded-for')?.split(',')[0].trim() ||
                      req.headers.get('x-real-ip') ||
                      '127.0.0.1';
 
-    // 1. Rate Limiting Check
-    const isAllowed = await checkRateLimit(clientIp);
-    if (!isAllowed) {
+    const isProduction = process.env.NODE_ENV === 'production' || process.env.VERCEL_ENV === 'production';
+
+    // 5. Rate Limiting Check (Mandatory Upstash in production)
+    const rateLimitResult = await checkRateLimit(clientIp, isProduction);
+    if (rateLimitResult.unconfigured) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          unconfigured: true,
+          error: 'Production rate limiting protection (Upstash) is currently unconfigured. Please use direct email.',
+        }),
+        { status: 503, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    if (!rateLimitResult.allowed) {
       return new Response(
         JSON.stringify({
           success: false,
@@ -124,7 +195,7 @@ export default async function handler(req: Request): Promise<Response> {
 
     const body = await req.json().catch(() => ({}));
 
-    // 2. Honeypot check: If filled by automated bot, return 200 silently
+    // 6. Honeypot check: If filled by automated bot, return 200 silently
     if (body.honeypot && typeof body.honeypot === 'string' && body.honeypot.trim().length > 0) {
       return new Response(
         JSON.stringify({ success: true, message: 'Inquiry received.' }),
@@ -132,7 +203,7 @@ export default async function handler(req: Request): Promise<Response> {
       );
     }
 
-    // 3. Schema validation with Zod
+    // 7. Schema validation with Zod
     const validationResult = contactSchema.safeParse(body);
     if (!validationResult.success) {
       const firstError = validationResult.error.errors[0]?.message || 'Invalid input parameters';
@@ -144,7 +215,7 @@ export default async function handler(req: Request): Promise<Response> {
 
     const data = validationResult.data;
 
-    // 4. Cloudflare Turnstile CAPTCHA verification (if secret configured)
+    // 8. Cloudflare Turnstile CAPTCHA verification (if secret configured)
     const turnstileSecret = process.env.TURNSTILE_SECRET_KEY;
     if (turnstileSecret) {
       if (!data.turnstileToken) {
@@ -163,12 +234,11 @@ export default async function handler(req: Request): Promise<Response> {
       }
     }
 
-    // 5. Check Resend API configuration
+    // 9. Check Resend API configuration
     const resendApiKey = process.env.RESEND_API_KEY;
     const recipientEmail = process.env.CONTACT_TO_EMAIL || 'kajaltech75@gmail.com';
 
     if (!resendApiKey) {
-      // Do not pretend it succeeded! Inform caller that direct email fallback is required.
       return new Response(
         JSON.stringify({
           success: false,
@@ -179,7 +249,7 @@ export default async function handler(req: Request): Promise<Response> {
       );
     }
 
-    // 6. Send email via Resend
+    // 10. Send email via Resend
     const htmlContent = `
       <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #08090C; color: #F5F7FA; border-radius: 12px; border: 1px solid #1E2330;">
         <h2 style="color: #3B82F6; margin-top: 0; font-size: 20px; border-bottom: 1px solid #1E2330; padding-bottom: 12px;">New Project Inquiry</h2>

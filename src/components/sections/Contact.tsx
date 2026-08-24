@@ -30,12 +30,11 @@ export const Contact: React.FC<ContactProps> = ({ initialProjectType }) => {
 
   const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY as string | undefined;
 
-  // Update projectType if passed via props
-  useEffect(() => {
-    if (initialProjectType) {
-      setFormData((prev) => ({ ...prev, projectType: initialProjectType }));
-    }
-  }, [initialProjectType]);
+  const [prevInitial, setPrevInitial] = useState(initialProjectType);
+  if (initialProjectType && initialProjectType !== prevInitial) {
+    setPrevInitial(initialProjectType);
+    setFormData((prev) => ({ ...prev, projectType: initialProjectType }));
+  }
 
   // Optional Cloudflare Turnstile script loading
   useEffect(() => {

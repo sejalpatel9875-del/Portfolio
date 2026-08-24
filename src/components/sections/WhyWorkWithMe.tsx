@@ -4,12 +4,20 @@ import { profileData } from '../../data/profile';
 import { UserCheck, Zap, Shield, Sparkles, Clock, CheckCircle } from 'lucide-react';
 
 export const WhyWorkWithMe: React.FC = () => {
-  const iconList = [
-    <UserCheck className="w-5 h-5 text-blue-400" />,
-    <Zap className="w-5 h-5 text-amber-400" />,
-    <Shield className="w-5 h-5 text-emerald-400" />,
-    <Sparkles className="w-5 h-5 text-purple-400" />,
-  ];
+  const getIcon = (idx: number) => {
+    switch (idx) {
+      case 0:
+        return <UserCheck className="w-5 h-5 text-blue-400" />;
+      case 1:
+        return <Zap className="w-5 h-5 text-amber-400" />;
+      case 2:
+        return <Shield className="w-5 h-5 text-emerald-400" />;
+      case 3:
+        return <Sparkles className="w-5 h-5 text-purple-400" />;
+      default:
+        return <CheckCircle className="w-5 h-5 text-blue-400" />;
+    }
+  };
 
   return (
     <section id="why-me" className="py-24 relative">
@@ -28,7 +36,7 @@ export const WhyWorkWithMe: React.FC = () => {
             >
               <div className="space-y-3">
                 <div className="p-3 w-fit rounded-xl bg-white/5 border border-white/10">
-                  {iconList[idx] || <CheckCircle className="w-5 h-5 text-blue-400" />}
+                  {getIcon(idx)}
                 </div>
                 <h3 className="text-lg font-bold font-display text-slate-100">
                   {item.title}

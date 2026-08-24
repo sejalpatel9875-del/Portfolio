@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+@layer base {
+  /* Default Obsidian Preset */
+  :root, [data-theme="obsidian"] {
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Space Grotesk', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+
+    --bg-base: #08090C;
+    --bg-surface: #101218;
+    --bg-surface-secondary: #151821;
+    --bg-surface-elevated: #1B1F2B;
+    
+    --text-primary: #F5F7FA;
+    --text-secondary: #9299A6;
+    --text-muted: #5E6676;
+    
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.16);
+    --border-accent: rgba(59, 130, 246, 0.4);
+
+    --accent-primary: #3B82F6; /* Electric Blue */
+    --accent-secondary: #8B5CF6; /* Violet */
+    --accent-tertiary: #06B6D4; /* Cyan */
+    --accent-glow: rgba(59, 130, 246, 0.18);
+
+    --glass-bg: rgba(16, 18, 24, 0.75);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-blur: 16px;
+    color-scheme: dark;
+  }
+
+  /* Paper Light Theme Preset */
+  [data-theme="paper"] {
+    --bg-base: #F7F7F4;
+    --bg-surface: #FFFFFF;
+    --bg-surface-secondary: #EFEFEA;
+    --bg-surface-elevated: #E5E5DF;
+    
+    --text-primary: #111318;
+    --text-secondary: #686D78;
+    --text-muted: #8E94A0;
+    
+    --border-subtle: #E6E7EA;
+    --border-hover: #D1D3D8;
+    --border-accent: rgba(29, 78, 216, 0.35);
+
+    --accent-primary: #1D4ED8; /* Deep Blue */
+    --accent-secondary: #6D28D9; /* Deep Violet */
+    --accent-tertiary: #0E7490; /* Deep Cyan */
+    --accent-glow: rgba(29, 78, 216, 0.12);
+
+    --glass-bg: rgba(255, 255, 255, 0.85);
+    --glass-border: rgba(0, 0, 0, 0.08);
+    --glass-blur: 16px;
+    color-scheme: light;
+  }
+
+  /* Aurora Dark Preset */
+  [data-theme="aurora"] {
+    --bg-base: #06120E;
+    --bg-surface: #0B1E17;
+    --bg-surface-secondary: #102A21;
+    --bg-surface-elevated: #16362B;
+    
+    --text-primary: #F0FDF4;
+    --text-secondary: #86EFAC;
+    --text-muted: #4ADE80;
+    
+    --border-subtle: rgba(16, 185, 129, 0.15);
+    --border-hover: rgba(16, 185, 129, 0.3);
+    --border-accent: rgba(16, 185, 129, 0.5);
+
+    --accent-primary: #10B981; /* Emerald */
+    --accent-secondary: #06B6D4; /* Cyan */
+    --accent-tertiary: #3B82F6;
+    --accent-glow: rgba(16, 185, 129, 0.2);
+
+    --glass-bg: rgba(11, 30, 23, 0.75);
+    --glass-border: rgba(16, 185, 129, 0.15);
+    --glass-blur: 16px;
+    color-scheme: dark;
+  }
+
+  /* Arctic Dark Preset */
+  [data-theme="arctic"] {
+    --bg-base: #0B101B;
+    --bg-surface: #111A2E;
+    --bg-surface-secondary: #17233E;
+    --bg-surface-elevated: #1F2D4E;
+    
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #64748B;
+    
+    --border-subtle: rgba(56, 189, 248, 0.12);
+    --border-hover: rgba(56, 189, 248, 0.25);
+    --border-accent: rgba(56, 189, 248, 0.45);
+
+    --accent-primary: #38BDF8; /* Ice Sky */
+    --accent-secondary: #818CF8; /* Soft Indigo */
+    --accent-tertiary: #C084FC;
+    --accent-glow: rgba(56, 189, 248, 0.2);
+
+    --glass-bg: rgba(17, 26, 46, 0.75);
+    --glass-border: rgba(56, 189, 248, 0.12);
+    --glass-blur: 16px;
+    color-scheme: dark;
+  }
+
+  /* Midnight Navy Preset */
+  [data-theme="midnight"] {
+    --bg-base: #050814;
+    --bg-surface: #0B1124;
+    --bg-surface-secondary: #111B38;
+    --bg-surface-elevated: #18254C;
+    
+    --text-primary: #F1F5F9;
+    --text-secondary: #A5B4FC;
+    --text-muted: #6366F1;
+    
+    --border-subtle: rgba(99, 102, 241, 0.14);
+    --border-hover: rgba(99, 102, 241, 0.28);
+    --border-accent: rgba(99, 102, 241, 0.5);
+
+    --accent-primary: #6366F1; /* Indigo */
+    --accent-secondary: #A855F7; /* Purple */
+    --accent-tertiary: #EC4899;
+    --accent-glow: rgba(99, 102, 241, 0.2);
+
+    --glass-bg: rgba(11, 17, 36, 0.75);
+    --glass-border: rgba(99, 102, 241, 0.14);
+    --glass-blur: 16px;
+    color-scheme: dark;
+  }
+
+  /* Sunset Ember Preset */
+  [data-theme="sunset"] {
+    --bg-base: #12090C;
+    --bg-surface: #1E1015;
+    --bg-surface-secondary: #2A171D;
+    --bg-surface-elevated: #371E26;
+    
+    --text-primary: #FFF1F2;
+    --text-secondary: #FDA4AF;
+    --text-muted: #FB7185;
+    
+    --border-subtle: rgba(244, 63, 94, 0.15);
+    --border-hover: rgba(244, 63, 94, 0.3);
+    --border-accent: rgba(244, 63, 94, 0.5);
+
+    --accent-primary: #F43F5E; /* Rose */
+    --accent-secondary: #F59E0B; /* Amber */
+    --accent-tertiary: #8B5CF6;
+    --accent-glow: rgba(244, 63, 94, 0.2);
+
+    --glass-bg: rgba(30, 16, 21, 0.75);
+    --glass-border: rgba(244, 63, 94, 0.15);
+    --glass-blur: 16px;
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, h4, h5, h6, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.025em;
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Studio UI Surface Classes */
+.builder-surface {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.builder-surface-secondary {
+  background-color: var(--bg-surface-secondary);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.builder-glass {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+.builder-glass:hover {
+  border-color: var(--border-hover);
+}
+
+.builder-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.builder-card-hover:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -12px var(--accent-glow);
+}
+
+/* Audio Waveform Animation for Jarvis */
+@keyframes wave-bar {
+  0%, 100% { height: 6px; }
+  50% { height: 28px; }
+}
+
+.animate-wave-1 { animation: wave-bar 1.2s ease-in-out infinite 0.1s; }
+.animate-wave-2 { animation: wave-bar 1.0s ease-in-out infinite 0.25s; }
+.animate-wave-3 { animation: wave-bar 1.4s ease-in-out infinite 0.4s; }
+.animate-wave-4 { animation: wave-bar 0.9s ease-in-out infinite 0.15s; }
+.animate-wave-5 { animation: wave-bar 1.3s ease-in-out infinite 0.3s; }
+.animate-wave-6 { animation: wave-bar 1.1s ease-in-out infinite 0.5s; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-primary);
+}

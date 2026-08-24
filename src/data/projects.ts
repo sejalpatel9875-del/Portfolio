@@ -3,20 +3,20 @@ import type { Project } from '../types';
 export const projectsData: Project[] = [
   {
     id: 'flowpilot-ai',
-    title: 'FlowPilot AI',
-    subtitle: 'AI Command Center & Multi-Agent Orchestration',
+    title: 'FlowPilot AI Command Center',
+    subtitle: 'Autonomous Multi-Agent Workflow Orchestration',
     tagline: 'Multi-Agent Execution Engine with Human-in-the-Loop Safety',
-    status: 'Building',
+    status: 'Personal Project',
     category: 'AI & Agents',
-    shortDescription: 'A production-oriented multi-agent command center with human-in-the-loop approval gates, workflow planning, real-time telemetry, and adaptive UI.',
-    problemStatement: 'Managing autonomous multi-step AI workflows often lacks observability, deterministic tool validation, and safe human oversight before critical operations execute.',
-    approach: 'Engineered a supervisor-worker pattern with isolated sandboxes for specialized task agents, real-time websocket state synchronization, and deterministic human approval checkpoints.',
+    shortDescription: 'An AI-powered command center demonstrating multi-agent task orchestration, supervisor-worker delegation, and human approval checkpoints for deterministic tool execution.',
+    problemStatement: 'Autonomous AI agents executing multi-step tasks often lack execution visibility, token audit trails, and mandatory human checkpoints before invoking irreversible tools.',
+    approach: 'Designed a supervisor-worker pattern in Python/FastAPI with WebSocket telemetry, structured task decomposition, and interactive approval gates in Next.js.',
     whatBuilt: [
-      'Multi-agent execution engine with supervisor-worker delegation architecture',
+      'Multi-agent execution engine with supervisor-worker task delegation',
       'Human-in-the-loop approval checkpoint mechanism for high-stakes tool execution',
-      'Telemetry and audit trail logger tracking token usage, latency, and step transitions',
-      'Adaptive appearance system with customized dark/light theme tokens and glowing glassmorphism UI',
-      'FastAPI backend microservice handling asynchronous agent tasks and LLM stream routing'
+      'Telemetry audit logger tracking token consumption, latency, and step transitions',
+      'High-contrast dashboard UI built with Next.js, TypeScript, and Tailwind CSS',
+      'FastAPI asynchronous backend microservice handling parallel worker tasks'
     ],
     keyFeatures: [
       'Multi-Agent Workflow Orchestration (Supervisor + Specialized Task Agents)',
@@ -26,34 +26,34 @@ export const projectsData: Project[] = [
       'FastAPI backend with structured Pydantic schemas and error boundaries'
     ],
     techStack: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'FastAPI', 'Python', 'Gemini API', 'Groq', 'PostgreSQL', 'Docker'],
-    role: 'Full-Stack Architecture, AI Agent Design & UI/UX',
+    role: 'Full-Stack Architecture, Agent Design & UI/UX',
     architectureNodes: [
       { title: 'Command UI', role: 'Interactive Dashboard & Approval Gates', tech: 'Next.js + Tailwind CSS' },
       { title: 'Supervisor Agent', role: 'Task Decomposition & Delegation', tech: 'Python / Gemini / Groq' },
       { title: 'Specialized Workers', role: 'Tool Execution (Code, Search, Data)', tech: 'FastAPI Microservice' },
       { title: 'Audit & Telemetry', role: 'State Tracking & Token Usage', tech: 'PostgreSQL + Docker' }
     ],
-    githubUrl: 'https://github.com/sejalpatel9875-del/flowpilot-ai',
+    githubUrl: 'https://github.com/sejalpatel9875-del/Portfolio',
     liveDemoUrl: undefined,
     verifiedNotes: 'Built as a comprehensive demonstration of multi-agent orchestration and modern SaaS UI engineering.',
     featured: true
   },
   {
     id: 'jarvis-ai',
-    title: 'Jarvis AI Assistant',
-    subtitle: 'Voice-Enabled AI Assistant & System Automation',
+    title: 'Jarvis AI Voice Assistant',
+    subtitle: 'Voice-Enabled Assistant & System Automation',
     tagline: 'Voice-First AI Runtime with Hybrid Local & Cloud LLM Routing',
     status: 'Experimental',
     category: 'AI & Agents',
-    shortDescription: 'An interactive voice-enabled AI assistant integrating speech-to-text, multi-model LLM routing (Groq, Gemini, Ollama local fallback), and terminal automation.',
-    problemStatement: 'Bridging voice interactions with local system commands requires low-latency speech processing, flexible model switching, and reliable tool calling without high cloud dependency.',
-    approach: 'Combined OpenAI Whisper for low-latency voice transcription with a dynamic routing layer that leverages Groq for cloud speed and Ollama for offline privacy-first execution.',
+    shortDescription: 'A voice-driven AI assistant pipeline integrating Whisper speech-to-text, dynamic LLM routing (Groq for cloud speed, Ollama for local privacy), and system automation.',
+    problemStatement: 'Standard voice assistants require heavy cloud dependency and lack the ability to route sensitive queries to local offline models or execute custom terminal automations.',
+    approach: 'Combined OpenAI Whisper for low-latency voice transcription with an intelligent router that dispatches queries to Groq or local Ollama instances based on network and privacy requirements.',
     whatBuilt: [
       'Speech-to-text pipeline using OpenAI Whisper for rapid voice transcription',
       'Hybrid LLM routing layer supporting ultra-fast cloud inference (Groq) and local offline inference (Ollama)',
-      'System automation scripts for YouTube navigation, application launching, and terminal task execution',
-      'Text-to-speech feedback loop delivering real-time audible responses',
-      'Python backend structuring intent recognition and tool execution handlers'
+      'System automation handlers for app launching, web search, and terminal scripts',
+      'Text-to-speech audio feedback interaction loop',
+      'Modular Python backend with structured tool-calling handlers'
     ],
     keyFeatures: [
       'Wake-word concept and voice command recognition via Whisper',
@@ -70,7 +70,7 @@ export const projectsData: Project[] = [
       { title: 'Inference Engine', role: 'Intent & Command Reasoning', tech: 'Groq / Gemini / Ollama' },
       { title: 'System Controller', role: 'OS Action & Web Automation', tech: 'Python OS / Subprocess' }
     ],
-    githubUrl: 'https://github.com/sejalpatel9875-del/jarvis-ai',
+    githubUrl: 'https://github.com/sejalpatel9875-del/Portfolio',
     liveDemoUrl: undefined,
     verifiedNotes: 'Experimental system prototype built to explore real-time voice AI and hybrid local/cloud LLM routing.',
     featured: true
@@ -78,19 +78,19 @@ export const projectsData: Project[] = [
   {
     id: 'karya-pharmacy',
     title: 'Karya Pharmacy Portal',
-    subtitle: 'Academic & EdTech Management Web Platform',
+    subtitle: 'EdTech Course Management & Study Hub',
     tagline: 'Full-Stack Digital Hub for Course Content & Student Progression',
     status: 'Prototype',
     category: 'Full-Stack & Systems',
-    shortDescription: 'A full-stack educational and administrative platform concept supporting student authentication, video lectures, notes repository, attendance tracking, and admin dashboard.',
-    problemStatement: 'Pharmacy students and instructors need a unified digital hub to organize structured study material, lecture replays, attendance records, and course progression.',
-    approach: 'Built a clean role-based architecture with relational database schemas in PostgreSQL, responsive React dashboards, and secure token authentication.',
+    shortDescription: 'A full-stack educational portal prototype featuring student/instructor authentication, video lectures, downloadable study materials, and attendance tracking.',
+    problemStatement: 'Educational institutes often struggle with fragmented tools for lecture replays, notes distribution, and attendance tracking.',
+    approach: 'Built a clean role-based architecture with relational schemas in PostgreSQL, responsive React dashboards, and secure token authentication.',
     whatBuilt: [
-      'Role-based authentication architecture for students and instructors/administrators',
-      'Course content manager for organizing video lectures, syllabi, and downloadable PDF notes',
+      'Role-based authentication architecture for students and administrators',
+      'Course content manager for video lectures, syllabi, and downloadable PDF notes',
       'Interactive student dashboard with attendance visualization and assignment tracking',
-      'Admin control panel for student enrollment and course publication',
-      'Payment integration blueprint and checkout flow architecture'
+      'Admin control panel for student enrollment and content publication',
+      'Relational PostgreSQL database schema design'
     ],
     keyFeatures: [
       'Secure Student/Admin Authentication & Role-Based Access Control',
@@ -106,7 +106,7 @@ export const projectsData: Project[] = [
       { title: 'Auth & REST API', role: 'Role-Based Access & Data Endpoints', tech: 'FastAPI / Node.js + JWT' },
       { title: 'Content Store', role: 'PDF Notes, Video Metadata & Profiles', tech: 'PostgreSQL Relational DB' }
     ],
-    githubUrl: 'https://github.com/sejalpatel9875-del/karya-pharmacy',
+    githubUrl: 'https://github.com/sejalpatel9875-del/Portfolio',
     liveDemoUrl: undefined,
     verifiedNotes: 'Developed as a comprehensive full-stack prototype addressing educational workflows.',
     featured: true
@@ -114,18 +114,18 @@ export const projectsData: Project[] = [
   {
     id: 'academic-systems-lab',
     title: 'Academic & Systems Lab',
-    subtitle: 'Coursework Implementations & CS Fundamentals',
+    subtitle: 'CS Fundamentals & Data Structure Drills',
     tagline: 'Algorithmic Drills, Relational DB Normalization & OS Simulators',
     status: 'Academic',
     category: 'Academic & Systems',
-    shortDescription: 'A curated collection of practical implementations from BCA coursework including Java OOP structures, relational DBMS schemas, OS scheduling simulations, and web experiments.',
-    problemStatement: 'Understanding computer science fundamentals requires writing foundational algorithms, normalizing databases, and simulating low-level system concepts from the ground up.',
-    approach: 'Implemented standard algorithms and data structures in Java, simulated CPU scheduling in Python, and executed 3NF schema normalization on PostgreSQL.',
+    shortDescription: 'A curated collection of practical implementations from BCA coursework including Java OOP structures, relational DBMS schemas, and OS scheduling simulations.',
+    problemStatement: 'Solid engineering starts with fundamental understanding of data structures, algorithm efficiency, and relational database normalization.',
+    approach: 'Implemented foundational algorithms in Java and simulated CPU scheduling lifecycles in Python.',
     whatBuilt: [
       'Java OOP implementations of data structures (Trees, Linked Lists, Queues, Graphs)',
       'Relational database schemas with SQL joins, triggers, and 3NF normalization exercises',
       'Operating System CPU scheduling simulation algorithms (FCFS, SJF, Round Robin)',
-      'Micro-web experiments testing CSS layout algorithms, DOM manipulation, and responsive UX'
+      'Micro-web experiments testing responsive UX and DOM rendering'
     ],
     keyFeatures: [
       'Clean, documented algorithm implementations in Java and Python',
@@ -134,13 +134,13 @@ export const projectsData: Project[] = [
       'Benchmarking and algorithmic time/space complexity analysis'
     ],
     techStack: ['Java', 'Python', 'SQL', 'C/C++ Coursework', 'HTML/CSS/JS', 'Git'],
-    role: 'Student Researcher & Algorithmic Developer',
+    role: 'Student Developer & Algorithmic Implementer',
     architectureNodes: [
       { title: 'Data Structures', role: 'Core OOP Implementations & Algorithms', tech: 'Java Standard Library' },
       { title: 'Database Models', role: 'Relational Schemas & Query Optimization', tech: 'SQL / PostgreSQL' },
       { title: 'System Simulators', role: 'OS Process & Memory Scheduling', tech: 'Python / Java' }
     ],
-    githubUrl: 'https://github.com/sejalpatel9875-del/academic-experiments',
+    githubUrl: 'https://github.com/sejalpatel9875-del/Portfolio',
     liveDemoUrl: undefined,
     verifiedNotes: 'Academic codebase highlighting core computer science principles and algorithmic problem solving.',
     featured: false

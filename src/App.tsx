@@ -2,79 +2,47 @@ import { useState } from 'react';
 import { Navbar } from './components/layout/Navbar';
 import { Footer } from './components/layout/Footer';
 import { Hero } from './components/sections/Hero';
-import { WhatIBuild } from './components/sections/WhatIBuild';
+import { Services } from './components/sections/Services';
 import { Projects } from './components/sections/Projects';
-import { AIAutomation } from './components/sections/AIAutomation';
-import { Architecture } from './components/sections/Architecture';
+import { WhyWorkWithMe } from './components/sections/WhyWorkWithMe';
 import { Skills } from './components/sections/Skills';
-import { GitHubLab } from './components/sections/GitHubLab';
-import { JourneyTimeline } from './components/sections/JourneyTimeline';
-import { CurrentlyLearning } from './components/sections/CurrentlyLearning';
 import { About } from './components/sections/About';
 import { Contact } from './components/sections/Contact';
-import { AppearanceStudio } from './components/studio/AppearanceStudio';
-import { CursorSpotlight } from './components/ui/CursorSpotlight';
-import { useAppearance } from './hooks/useAppearance';
 
 export function App() {
-  const [isStudioOpen, setIsStudioOpen] = useState(false);
-  const { settings, setPreset, updateSetting } = useAppearance();
+  const [selectedService, setSelectedService] = useState<string>('Business & Portfolio Websites');
 
   return (
     <div className="min-h-screen flex flex-col relative transition-colors duration-300">
-      {/* Subtle Cursor Ambient Spotlight */}
-      <CursorSpotlight enabled={settings.spotlightEnabled} />
+      {/* Floating Capsule Navbar with Theme Toggle */}
+      <Navbar />
 
-      {/* Floating Capsule Navbar */}
-      <Navbar onOpenStudio={() => setIsStudioOpen(true)} />
-
-      {/* Main Content Progression */}
+      {/* Main Client Journey */}
       <main className="flex-grow">
-        {/* 1. Hero Section + Interactive AI Core */}
-        <Hero onOpenStudio={() => setIsStudioOpen(true)} />
+        {/* 1. Client-Focused Hero */}
+        <Hero />
 
-        {/* 2. What I Build (4 Expandable Architecture Pillars) */}
-        <WhatIBuild />
+        {/* 2. Services & Solutions (Lead Generator) */}
+        <Services onSelectService={(service) => setSelectedService(service)} />
 
-        {/* 3. Selected Builds (FlowPilot Centerpiece, Jarvis AI, Karya Pharmacy) */}
+        {/* 3. Case Studies & Real Work (Proof of Competence) */}
         <Projects />
 
-        {/* 4. AI & Automation (Multi-Agent Execution Pipeline) */}
-        <AIAutomation />
+        {/* 4. Why Work With Me (Trust & Value Prop) */}
+        <WhyWorkWithMe />
 
-        {/* 5. System Architecture Blueprint */}
-        <Architecture />
-
-        {/* 6. Connected Technology Stack */}
+        {/* 5. Connected Technology Stack */}
         <Skills />
 
-        {/* 7. GitHub & Open Source Lab (@sejalpatel9875-del) */}
-        <GitHubLab />
-
-        {/* 8. Learning Journey Timeline */}
-        <JourneyTimeline />
-
-        {/* 9. Currently Exploring & Building */}
-        <CurrentlyLearning />
-
-        {/* 10. About ("I learn by building.") */}
+        {/* 6. Professional Background & Ethos */}
         <About />
 
-        {/* 11. Contact Protocol ("LET'S BUILD SOMETHING.") */}
-        <Contact />
+        {/* 7. High-Converting Contact & Project Scope Form */}
+        <Contact initialProjectType={selectedService} />
       </main>
 
-      {/* 12. Minimalist Footer */}
+      {/* 8. Footer */}
       <Footer />
-
-      {/* Adaptive Appearance Studio Customization Drawer */}
-      <AppearanceStudio
-        isOpen={isStudioOpen}
-        onClose={() => setIsStudioOpen(false)}
-        settings={settings}
-        setPreset={setPreset}
-        updateSetting={updateSetting}
-      />
     </div>
   );
 }

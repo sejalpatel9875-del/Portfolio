@@ -44,11 +44,11 @@ export function useAppearance() {
   }, [settings]);
 
   const setPreset = (preset: ThemePreset) => {
-    setSettings((prev) => ({ ...prev, preset }));
+    setSettings((prev: AppearanceSettings) => ({ ...prev, preset }));
   };
 
   const updateSetting = <K extends keyof AppearanceSettings>(key: K, value: AppearanceSettings[K]) => {
-    setSettings((prev) => ({ ...prev, [key]: value }));
+    setSettings((prev: AppearanceSettings) => ({ ...prev, [key]: value }));
   };
 
   return { settings, setPreset, updateSetting };

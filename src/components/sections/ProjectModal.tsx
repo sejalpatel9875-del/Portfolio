@@ -5,7 +5,7 @@ import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
 import { GithubIcon } from '../ui/Icons';
 import { ProjectDNA } from '../ui/ProjectDNA';
-import { CheckCircle2, Sparkles } from 'lucide-react';
+import { CheckCircle2, Sparkles, ExternalLink } from 'lucide-react';
 
 interface ProjectModalProps {
   project: Project | null;
@@ -19,11 +19,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
   if (!project) return null;
 
   const statusVariants: Record<string, 'primary' | 'warning' | 'purple' | 'cyan' | 'default'> = {
-    Building: 'primary',
-    Prototype: 'purple',
-    Experimental: 'warning',
-    Academic: 'cyan',
-    Completed: 'default'
+    'Personal Project': 'primary',
+    'Prototype': 'purple',
+    'Experimental': 'warning',
+    'Academic': 'cyan',
+    'Building': 'primary',
   };
 
   return (
@@ -46,10 +46,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
           {(
             [
               { id: 'overview', label: 'Overview' },
-              { id: 'dna', label: 'Project DNA' },
-              { id: 'approach', label: 'Problem & Approach' },
-              { id: 'features', label: 'Architecture & Tech' },
-              { id: 'learnings', label: 'Key Learnings' },
+              { id: 'dna', label: 'System Architecture' },
+              { id: 'approach', label: 'Problem & Solution' },
+              { id: 'features', label: 'Features & Tech Stack' },
+              { id: 'learnings', label: 'Technical Context' },
             ] as const
           ).map((tab) => (
             <button
@@ -71,7 +71,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
           <div className="space-y-5 animate-in fade-in duration-200">
             <div className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-1">
               <span className="text-[10px] font-mono text-blue-400 uppercase tracking-wider">
-                Product Vision
+                System Focus
               </span>
               <p className="text-slate-100 text-base font-display font-medium">
                 {project.tagline}
@@ -89,7 +89,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
 
             <div>
               <h4 className="text-xs uppercase tracking-wider font-mono font-semibold text-slate-400 mb-2">
-                What Was Engineered
+                Key Components Engineered
               </h4>
               <ul className="space-y-2">
                 {project.whatBuilt.map((item, idx) => (
@@ -104,13 +104,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
             <div className="p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/20 text-xs text-blue-300 flex items-start gap-2">
               <Sparkles className="w-4 h-4 shrink-0 mt-0.5 text-blue-400" />
               <div>
-                <strong>My Engineering Role:</strong> {project.role}
+                <strong>Engineering Role:</strong> {project.role}
               </div>
             </div>
           </div>
         )}
 
-        {/* Tab 2: Project DNA Interactive Visualizer */}
+        {/* Tab 2: System Architecture Visualizer */}
         {activeTab === 'dna' && (
           <div className="space-y-4 animate-in fade-in duration-200">
             <ProjectDNA />
@@ -122,7 +122,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
           <div className="space-y-5 animate-in fade-in duration-200">
             <div>
               <h4 className="text-xs uppercase tracking-wider font-mono font-semibold text-slate-400 mb-1.5">
-                The Engineering Challenge
+                The Problem
               </h4>
               <p className="text-slate-200 leading-relaxed bg-black/40 p-4 rounded-xl border border-white/5">
                 {project.problemStatement}
@@ -131,7 +131,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
 
             <div>
               <h4 className="text-xs uppercase tracking-wider font-mono font-semibold text-slate-400 mb-1.5">
-                Technical Strategy & Solution
+                The Engineering Solution
               </h4>
               <p className="text-slate-300 leading-relaxed bg-black/40 p-4 rounded-xl border border-white/5">
                 {project.approach}
@@ -159,7 +159,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
 
             <div>
               <h4 className="text-xs uppercase tracking-wider font-mono font-semibold text-slate-400 mb-2">
-                Technologies Used
+                Technology Stack
               </h4>
               <div className="flex flex-wrap gap-1.5">
                 {project.techStack.map((tech) => (
@@ -180,7 +180,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
           <div className="space-y-4 animate-in fade-in duration-200">
             <div className="p-4 rounded-xl bg-black/30 border border-white/5 space-y-2">
               <h4 className="text-sm font-bold font-display text-slate-200">
-                Key Technical Takeaways
+                Implementation Context
               </h4>
               <p className="text-xs text-slate-300 leading-relaxed">
                 {project.verifiedNotes}
@@ -203,11 +203,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, isOpen, onC
                 View Repository
               </Button>
             )}
+            {project.liveDemoUrl && (
+              <Button
+                href={project.liveDemoUrl}
+                external
+                variant="glow"
+                size="sm"
+                icon={<ExternalLink className="w-4 h-4" />}
+              >
+                Live Demo
+              </Button>
+            )}
           </div>
 
           <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-400" />
-            <span>Verified Grounded Project</span>
+            <span>Honest Verified Project</span>
           </div>
         </div>
       </div>

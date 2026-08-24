@@ -4,7 +4,7 @@ import { roadmapGoals } from '../../data/roadmap';
 import { Target } from 'lucide-react';
 
 export const CurrentlyLearning: React.FC = () => {
-  const stateBadgeMap = {
+  const stateBadgeMap: Record<'BUILDING' | 'EXPLORING' | 'LEARNING', string> = {
     BUILDING: 'bg-blue-500/10 border-blue-500/30 text-blue-400',
     EXPLORING: 'bg-purple-500/10 border-purple-500/30 text-purple-400',
     LEARNING: 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'

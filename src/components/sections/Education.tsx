@@ -50,7 +50,7 @@ export const Education: React.FC = () => {
                   Primary Academic Focus:
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {educationData.focusAreas.map((area, idx) => (
+                  {educationData.focusAreas.map((area: string, idx: number) => (
                     <div key={idx} className="flex items-start gap-2 text-xs text-slate-300">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0 mt-0.5" />
                       <span>{area}</span>
@@ -65,7 +65,7 @@ export const Education: React.FC = () => {
                   Key Coursework Modules:
                 </h4>
                 <div className="flex flex-wrap gap-2">
-                  {educationData.coreCoursework.map((course, idx) => (
+                  {educationData.coreCoursework.map((course: string, idx: number) => (
                     <span
                       key={idx}
                       className="px-3 py-1 rounded-lg bg-slate-950 border border-slate-800 text-xs text-slate-300"

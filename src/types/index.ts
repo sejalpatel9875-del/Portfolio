@@ -14,12 +14,11 @@ export interface SkillItem {
   category: SkillCategory;
   description: string;
   contextUsed: string;
-  usedInProjects: string[]; // Connected ecosystem mapping (e.g. ['FlowPilot AI', 'FastAPI'])
-  iconName?: string;
+  usedInProjects: string[];
   featured?: boolean;
 }
 
-export type ProjectStatus = 'Building' | 'Prototype' | 'Completed' | 'Experimental' | 'Academic';
+export type ProjectStatus = 'Personal Project' | 'Prototype' | 'Experimental' | 'Academic' | 'Building';
 
 export interface ProjectArchitectureNode {
   title: string;
@@ -48,13 +47,40 @@ export interface Project {
   tagline: string;
 }
 
-export interface AIWorkflowStep {
-  stepNumber: number;
+export interface ServiceItem {
+  id: string;
   title: string;
-  agentRole: string;
-  tooling: string;
+  badge: string;
   description: string;
-  verifiedTech: string;
+  clientOutcome: string;
+  typicalScope: string[];
+  icon: string;
+}
+
+export interface ContactFormPayload {
+  name: string;
+  email: string;
+  projectType: string;
+  budgetRange: string;
+  timeline: string;
+  message: string;
+  honeypot?: string;
+  turnstileToken?: string;
+}
+
+export interface ContactApiResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+  unconfigured?: boolean;
+}
+
+export interface JourneyMilestone {
+  period: string;
+  title: string;
+  tag: string;
+  description: string;
+  achievements: string[];
 }
 
 export interface EducationItem {
@@ -68,17 +94,9 @@ export interface EducationItem {
 
 export interface LearningGoal {
   topic: string;
-  state: 'EXPLORING' | 'BUILDING' | 'LEARNING';
+  state: 'BUILDING' | 'EXPLORING' | 'LEARNING';
   description: string;
   practicalTarget: string;
-}
-
-export interface JourneyMilestone {
-  period: string;
-  title: string;
-  tag: string;
-  description: string;
-  achievements: string[];
 }
 
 export type ThemePreset = 'obsidian' | 'paper' | 'aurora' | 'arctic' | 'midnight' | 'sunset';
@@ -89,4 +107,18 @@ export interface AppearanceSettings {
   glassOpacity: number;
   spotlightEnabled: boolean;
   motionEnabled: boolean;
+}
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: string | HTMLElement,
+        options: {
+          sitekey: string;
+          callback: (token: string) => void;
+        }
+      ) => void;
+    };
+  }
 }

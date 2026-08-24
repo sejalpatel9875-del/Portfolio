@@ -21,13 +21,13 @@ export const Projects: React.FC = () => {
     <section id="projects" className="py-24 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Selected Builds"
-          title="Engineered Products & Real Codebases"
-          description="Real projects. Real experiments. Real learning — built with multi-agent orchestration, speech-to-text pipelines, and full-stack systems."
+          eyebrow="Featured Work"
+          title="Case Studies & Real Codebases"
+          description="Detailed breakdowns of software architectures, multi-agent AI systems, and full-stack web applications."
         />
 
         <div className="space-y-12">
-          {/* CENTERPIECE 1: FlowPilot AI (Large Cinematic Showcase) */}
+          {/* CENTERPIECE: FlowPilot AI Command Center */}
           <div className="p-6 md:p-10 rounded-3xl builder-glass border border-white/10 shadow-2xl relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -36,7 +36,7 @@ export const Projects: React.FC = () => {
               <div className="lg:col-span-6 space-y-5 text-left">
                 <div className="flex items-center gap-2.5">
                   <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20">
-                    FEATURED AI CENTERPIECE
+                    AI AGENT SYSTEM
                   </span>
                   <Badge variant="primary" size="sm">
                     {flowpilot.status}
@@ -52,14 +52,22 @@ export const Projects: React.FC = () => {
                   </p>
                 </div>
 
-                <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                  {flowpilot.shortDescription}
-                </p>
+                {/* Problem & Solution Strip */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-slate-400 font-bold">The Problem</span>
+                    <p className="text-slate-300 line-clamp-3">{flowpilot.problemStatement}</p>
+                  </div>
+                  <div className="p-3 rounded-xl bg-black/40 border border-white/5 space-y-1">
+                    <span className="text-[10px] font-mono uppercase text-blue-400 font-bold">The Solution</span>
+                    <p className="text-slate-300 line-clamp-3">{flowpilot.approach}</p>
+                  </div>
+                </div>
 
-                {/* Key Built Highlights */}
-                <div className="p-4 rounded-xl bg-black/40 border border-white/5 space-y-2">
+                {/* What Was Built */}
+                <div className="space-y-1.5">
                   <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold">
-                    Key Implementations:
+                    What Was Built:
                   </span>
                   <ul className="space-y-1 text-xs text-slate-300">
                     {flowpilot.whatBuilt.slice(0, 3).map((item, idx) => (
@@ -71,7 +79,7 @@ export const Projects: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Tech Chips */}
+                {/* Tech Stack Chips */}
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {flowpilot.techStack.map((tech) => (
                     <span
@@ -84,7 +92,7 @@ export const Projects: React.FC = () => {
                 </div>
 
                 {/* Actions */}
-                <div className="pt-4 flex items-center gap-3">
+                <div className="pt-4 flex flex-wrap items-center gap-3">
                   <Button
                     onClick={() => setSelectedProject(flowpilot)}
                     variant="glow"
@@ -92,7 +100,7 @@ export const Projects: React.FC = () => {
                     icon={<ArrowUpRight className="w-4 h-4" />}
                     iconPosition="right"
                   >
-                    View Case Study & DNA
+                    View Full Case Study
                   </Button>
                   {flowpilot.githubUrl && (
                     <Button
@@ -102,7 +110,7 @@ export const Projects: React.FC = () => {
                       size="md"
                       icon={<GithubIcon className="w-4 h-4" />}
                     >
-                      Source Code
+                      GitHub Repo
                     </Button>
                   )}
                 </div>
@@ -149,7 +157,7 @@ export const Projects: React.FC = () => {
           {/* DUAL GRID: Jarvis AI + Karya Pharmacy */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Project 2: Jarvis AI */}
-            <div className="p-6 md:p-8 rounded-2xl builder-glass border border-white/10 flex flex-col justify-between space-y-6 group builder-card-hover">
+            <div className="p-6 md:p-8 rounded-2xl builder-glass border border-white/10 flex flex-col justify-between space-y-6 group hover:border-cyan-500/30 transition-all shadow-xl">
               <div className="space-y-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -215,7 +223,7 @@ export const Projects: React.FC = () => {
             </div>
 
             {/* Project 3: Karya Pharmacy */}
-            <div className="p-6 md:p-8 rounded-2xl builder-glass border border-white/10 flex flex-col justify-between space-y-6 group builder-card-hover">
+            <div className="p-6 md:p-8 rounded-2xl builder-glass border border-white/10 flex flex-col justify-between space-y-6 group hover:border-purple-500/30 transition-all shadow-xl">
               <div className="space-y-4">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
@@ -224,7 +232,7 @@ export const Projects: React.FC = () => {
                     </div>
                     <div>
                       <span className="text-[10px] font-mono uppercase tracking-wider text-purple-400">
-                        EdTech & Course Portal
+                        EdTech Portal
                       </span>
                       <h3 className="text-2xl font-bold font-display text-slate-100 group-hover:text-purple-400 transition-colors">
                         {karya.title}
@@ -281,7 +289,7 @@ export const Projects: React.FC = () => {
                   icon={<ArrowUpRight className="w-4 h-4" />}
                   iconPosition="right"
                 >
-                  Case Study & Architecture
+                  Case Study & Specs
                 </Button>
                 {karya.githubUrl && (
                   <a
@@ -298,7 +306,7 @@ export const Projects: React.FC = () => {
             </div>
           </div>
 
-          {/* PROJECT 4: Academic & Systems Lab Bar */}
+          {/* PROJECT 4: Academic & Systems Lab */}
           <div className="p-6 rounded-2xl builder-glass border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2.5 rounded-xl bg-slate-900 border border-white/10 text-slate-300">

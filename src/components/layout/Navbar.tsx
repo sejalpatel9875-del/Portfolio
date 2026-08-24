@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Sliders, Menu, X } from 'lucide-react';
+import { Menu, X, Sun, Moon, ArrowRight } from 'lucide-react';
 import { GithubIcon } from '../ui/Icons';
 import { profileData } from '../../data/profile';
-
-interface NavbarProps {
-  onOpenStudio: () => void;
-}
+import { useTheme } from '../../hooks/useTheme';
 
 const navItems = [
+  { label: 'SERVICES', href: '#services' },
   { label: 'WORK', href: '#projects' },
-  { label: 'STACK', href: '#skills' },
-  { label: 'JOURNEY', href: '#journey' },
+  { label: 'WHY ME', href: '#why-me' },
   { label: 'ABOUT', href: '#about' },
 ];
 
-export const Navbar: React.FC<NavbarProps> = ({ onOpenStudio }) => {
+export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,7 +29,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudio }) => {
       {/* Floating Desktop & Tablet Navbar */}
       <header className="fixed top-4 left-0 right-0 z-40 px-4 sm:px-6 flex justify-center pointer-events-none">
         <nav
-          className={`pointer-events-auto transition-all duration-300 rounded-full builder-glass border border-white/10 shadow-2xl flex items-center justify-between gap-6 sm:gap-10 ${
+          className={`pointer-events-auto transition-all duration-300 rounded-full builder-glass border border-white/10 shadow-2xl flex items-center justify-between gap-6 sm:gap-8 ${
             isScrolled
               ? 'py-2 px-4 sm:px-6 bg-slate-950/85 backdrop-blur-xl scale-[0.98]'
               : 'py-2.5 px-5 sm:px-7 bg-slate-950/70 backdrop-blur-lg'
@@ -61,15 +59,15 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudio }) => {
             ))}
           </div>
 
-          {/* Right: Customize Trigger & GitHub */}
+          {/* Right: Theme Toggle & Direct Start Project CTA */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
-              onClick={onOpenStudio}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-blue-600/10 border border-blue-500/30 text-blue-400 hover:bg-blue-600/20 hover:border-blue-500/50 text-xs font-mono transition-all cursor-pointer shadow-sm shadow-blue-500/10 group"
-              title="Open Adaptive Appearance Studio"
+              onClick={toggleTheme}
+              className="p-2 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors border border-white/10 cursor-pointer"
+              title={`Switch to ${theme === 'dark' ? 'Light' : 'Dark'} Mode`}
+              aria-label="Toggle theme"
             >
-              <Sliders className="w-3.5 h-3.5 group-hover:rotate-45 transition-transform" />
-              <span>CUSTOMIZE</span>
+              {theme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
             </button>
 
             <a
@@ -81,6 +79,14 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudio }) => {
               aria-label="GitHub Profile"
             >
               <GithubIcon className="w-3.5 h-3.5" />
+            </a>
+
+            <a
+              href="#contact"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-mono font-bold transition-all shadow-sm shadow-blue-500/25"
+            >
+              <span>START A PROJECT</span>
+              <ArrowRight className="w-3 h-3" />
             </a>
 
             {/* Mobile menu button */}
@@ -123,9 +129,9 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenStudio }) => {
             <a
               href="#contact"
               onClick={() => setMobileOpen(false)}
-              className="text-blue-400 hover:underline"
+              className="px-3 py-1 rounded-lg bg-blue-600 text-white font-bold"
             >
-              Contact ↗
+              Start Project →
             </a>
           </div>
         </div>

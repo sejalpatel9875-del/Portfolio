@@ -1,92 +1,79 @@
 import React from 'react';
-import { ArrowRight, Sliders } from 'lucide-react';
+import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { GithubIcon } from '../ui/Icons';
-import { AICoreVisualizer } from '../ui/AICoreVisualizer';
 import { profileData } from '../../data/profile';
 
-interface HeroProps {
-  onOpenStudio?: () => void;
-}
-
-export const Hero: React.FC<HeroProps> = ({ onOpenStudio }) => {
+export const Hero: React.FC = () => {
   return (
     <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      {/* Background Subtle Gradient Accents */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-blue-600/10 via-purple-600/5 to-cyan-500/5 blur-[120px] pointer-events-none rounded-full" />
+      {/* Subtle Background Radial Glow */}
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-blue-600/10 blur-[130px] pointer-events-none rounded-full" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          {/* Left Column: Headline & Value Proposition */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            {/* Eyebrow Pill */}
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full builder-glass border border-white/10 text-xs font-mono text-slate-300">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>{profileData.eyebrow}</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold font-display tracking-tight text-slate-100 leading-[1.08]">
-              BUILDING DIGITAL
-              <br />
-              <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300 bg-clip-text text-transparent">
-                SYSTEMS WITH AI.
-              </span>
-            </h1>
-
-            {/* Supporting Copy */}
-            <p className="text-base sm:text-lg text-slate-400 max-w-xl leading-relaxed">
-              {profileData.subheadline}
-            </p>
-
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3.5 pt-2">
-              <Button
-                href="#projects"
-                variant="glow"
-                size="lg"
-                icon={<ArrowRight className="w-4 h-4" />}
-                iconPosition="right"
-              >
-                EXPLORE MY WORK
-              </Button>
-              <Button
-                href={profileData.socialLinks.github}
-                variant="outline"
-                size="lg"
-                external
-                icon={<GithubIcon className="w-4 h-4" />}
-              >
-                GITHUB ↗
-              </Button>
-              {onOpenStudio && (
-                <Button
-                  onClick={onOpenStudio}
-                  variant="secondary"
-                  size="lg"
-                  icon={<Sliders className="w-4 h-4 text-blue-400" />}
-                >
-                  CUSTOMIZE OS
-                </Button>
-              )}
-            </div>
-
-            {/* Live Operational Status Footnote */}
-            <div className="pt-4 flex items-center gap-4 text-xs font-mono text-slate-500">
-              <span className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
-                <span>BUILDER OS v2.4</span>
-              </span>
-              <span>·</span>
-              <span>100% EVIDENCE-BASED</span>
-              <span>·</span>
-              <span className="hidden sm:inline">ZERO FABRICATION</span>
-            </div>
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          {/* Availability Badge */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full builder-glass border border-emerald-500/30 text-xs font-mono text-emerald-300 shadow-sm shadow-emerald-500/10">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span>{profileData.availabilityBadge}</span>
           </div>
 
-          {/* Right Column: Abstract Interactive AI Core Visualizer */}
-          <div className="lg:col-span-5">
-            <AICoreVisualizer />
+          {/* Main Client-Focused Headline */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold font-display tracking-tight text-slate-100 leading-[1.1]">
+            I build modern websites and AI automations that{' '}
+            <span className="bg-gradient-to-r from-blue-400 via-indigo-300 to-cyan-300 bg-clip-text text-transparent">
+              help businesses move faster.
+            </span>
+          </h1>
+
+          {/* Supporting Copy */}
+          <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-sans">
+            {profileData.subheadline}
+          </p>
+
+          {/* Direct Conversion CTAs */}
+          <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
+            <Button
+              href="#contact"
+              variant="glow"
+              size="lg"
+              icon={<ArrowRight className="w-4 h-4" />}
+              iconPosition="right"
+            >
+              Start a Project
+            </Button>
+            <Button
+              href="#projects"
+              variant="outline"
+              size="lg"
+            >
+              View My Work
+            </Button>
+            <Button
+              href={profileData.socialLinks.github}
+              variant="secondary"
+              size="lg"
+              external
+              icon={<GithubIcon className="w-4 h-4" />}
+            >
+              GitHub Code
+            </Button>
+          </div>
+
+          {/* Trust Highlights Strip */}
+          <div className="pt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10 text-xs font-mono text-slate-400 border-t border-white/5">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-blue-400" />
+              <span>Full-Stack (React, Next.js, FastAPI)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+              <span>Practical AI & Automation (Groq, Whisper)</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-purple-400" />
+              <span>Response Time &lt; 24h</span>
+            </div>
           </div>
         </div>
       </div>

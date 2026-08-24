@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Mail, ShieldCheck } from 'lucide-react';
+import { ArrowUp, Mail, ShieldCheck, Clock } from 'lucide-react';
 import { GithubIcon, LinkedinIcon } from '../ui/Icons';
 import { profileData } from '../../data/profile';
 
@@ -12,7 +12,7 @@ export const Footer: React.FC = () => {
     <footer className="border-t border-white/10 builder-surface-secondary text-slate-400 text-xs font-mono mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-          {/* Identity */}
+          {/* Identity & Status */}
           <div className="md:col-span-2 space-y-3">
             <div className="flex items-center gap-2">
               <span className="w-6 h-6 rounded-md bg-blue-600/20 border border-blue-500/40 text-blue-400 flex items-center justify-center text-xs font-mono font-bold">
@@ -21,34 +21,47 @@ export const Footer: React.FC = () => {
               <span className="font-display font-bold text-slate-100 text-sm">{profileData.name}</span>
             </div>
             <p className="text-slate-400 text-xs max-w-md leading-relaxed font-sans">
-              Personal Digital Builder OS · Exploring multi-agent AI systems, full-stack architecture, and refined digital product design.
+              Freelance Full-Stack Developer & AI Automation Builder · Building modern web applications and AI workflows that deliver real business impact.
             </p>
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px]">
-              <ShieldCheck className="w-3.5 h-3.5" />
-              <span>100% Verified Profile · Zero Fabrication Guarantee</span>
+            <div className="flex flex-wrap gap-2 pt-1">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px]">
+                <Clock className="w-3.5 h-3.5" />
+                <span>Response Time &lt; 24h</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[11px]">
+                <ShieldCheck className="w-3.5 h-3.5" />
+                <span>100% Verified Profile</span>
+              </div>
             </div>
           </div>
 
-          {/* Quick Jump */}
+          {/* Quick Links */}
           <div className="space-y-2">
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-200">
               Navigation
             </h4>
             <ul className="space-y-1.5 text-xs text-slate-400">
-              <li><a href="#projects" className="hover:text-blue-400 transition-colors">Selected Builds</a></li>
-              <li><a href="#skills" className="hover:text-blue-400 transition-colors">Connected Stack</a></li>
-              <li><a href="#journey" className="hover:text-blue-400 transition-colors">Learning Milestones</a></li>
-              <li><a href="#about" className="hover:text-blue-400 transition-colors">About & Ethos</a></li>
-              <li><a href="#contact" className="hover:text-blue-400 transition-colors">Contact Protocol</a></li>
+              <li><a href="#services" className="hover:text-blue-400 transition-colors">Services</a></li>
+              <li><a href="#projects" className="hover:text-blue-400 transition-colors">Featured Work</a></li>
+              <li><a href="#why-me" className="hover:text-blue-400 transition-colors">Why Work With Me</a></li>
+              <li><a href="#about" className="hover:text-blue-400 transition-colors">About</a></li>
+              <li><a href="#contact" className="hover:text-blue-400 transition-colors">Start a Project</a></li>
             </ul>
           </div>
 
           {/* Connect */}
           <div className="space-y-2">
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-slate-200">
-              Source & Network
+              Direct Contact
             </h4>
             <div className="flex flex-col space-y-1.5 text-xs text-slate-400">
+              <a
+                href={profileData.socialLinks.email}
+                className="flex items-center gap-2 hover:text-blue-400 transition-colors"
+              >
+                <Mail className="w-3.5 h-3.5" />
+                <span>{profileData.contactEmail}</span>
+              </a>
               <a
                 href={profileData.socialLinks.github}
                 target="_blank"
@@ -65,14 +78,7 @@ export const Footer: React.FC = () => {
                 className="flex items-center gap-2 hover:text-blue-400 transition-colors"
               >
                 <LinkedinIcon className="w-3.5 h-3.5" />
-                <span>LinkedIn</span>
-              </a>
-              <a
-                href={profileData.socialLinks.email}
-                className="flex items-center gap-2 hover:text-blue-400 transition-colors"
-              >
-                <Mail className="w-3.5 h-3.5" />
-                <span>{profileData.contactEmail}</span>
+                <span>LinkedIn Profile</span>
               </a>
             </div>
           </div>
@@ -85,7 +91,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-4">
             <span className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>OS Operational</span>
+              <span>Available for Hire</span>
             </span>
             <button
               onClick={scrollToTop}

@@ -2,56 +2,47 @@ import React from 'react';
 import { SectionHeading } from '../ui/SectionHeading';
 
 export const About: React.FC = () => {
-  const metadataChips = [
-    { label: 'BUILDING', desc: 'Practical Products & AI Agents', color: 'text-blue-400 border-blue-500/20 bg-blue-500/10' },
-    { label: 'LEARNING', desc: 'BCA Coursework & Deep CS', color: 'text-emerald-400 border-emerald-500/20 bg-emerald-500/10' },
-    { label: 'EXPERIMENTING', desc: 'Voice Models & Local LLMs', color: 'text-purple-400 border-purple-500/20 bg-purple-500/10' },
-    { label: 'DESIGNING', desc: 'Linear & Stripe Minimal Craft', color: 'text-rose-400 border-rose-500/20 bg-rose-500/10' }
-  ];
-
   return (
     <section id="about" className="py-24 relative">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
-          eyebrow="Identity & Ethos"
+          eyebrow="Background & Ethos"
           title="About Kajal"
-          description="A personal perspective on engineering, software craftsmanship, and academic direction."
+          description="A pragmatic full-stack developer and AI builder who focuses on delivering clean, usable software."
         />
 
-        {/* Large Signature Statement */}
-        <div className="p-8 md:p-12 rounded-3xl builder-glass border border-white/10 shadow-2xl space-y-6 text-center sm:text-left">
+        <div className="p-8 md:p-12 rounded-3xl builder-glass border border-white/10 shadow-2xl space-y-6 text-left">
           <div className="space-y-3">
             <span className="text-xs font-mono uppercase tracking-widest text-blue-400 font-bold">
-              Core Philosophy
+              Engineering Mindset
             </span>
-            <h3 className="text-3xl sm:text-4xl md:text-5xl font-extrabold font-display text-slate-100 leading-tight">
-              "I learn by building."
+            <h3 className="text-2xl sm:text-3xl font-bold font-display text-slate-100 leading-tight">
+              Solving real problems with modern full-stack code and practical AI workflows.
             </h3>
           </div>
 
-          <p className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-3xl">
-            I am <strong className="text-white">Kajal Maurya</strong>, a <strong className="text-blue-400">BCA (Bachelor of Computer Applications) student</strong> and software builder. While establishing a solid mathematical and algorithmic foundation through academic study, I believe that authentic software mastery comes from writing code, architecting systems, handling real failures, and shipping usable products.
+          <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+            I am <strong className="text-white">Kajal Maurya</strong>, a freelance full-stack developer and computer applications student based in India. My focus is on turning business requirements and product ideas into fast, production-ready web applications and automated AI systems.
           </p>
 
-          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-3xl">
-            My primary technical explorations center around multi-agent workflow orchestration (FlowPilot AI), voice runtime pipelines (Jarvis AI), and clean SaaS interface systems.
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
+            Rather than relying on abstract buzzwords, I emphasize strong foundational computer science principles, type-safe clean code (TypeScript & Python), responsive interface craftsmanship, and deterministic AI tools that deliver real operational efficiency for clients.
           </p>
 
-          {/* Visual Metadata Chips */}
-          <div className="pt-6 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-3">
-            {metadataChips.map((chip) => (
-              <div
-                key={chip.label}
-                className={`p-3.5 rounded-xl border ${chip.color} text-left space-y-1`}
-              >
-                <div className="text-xs font-mono font-bold tracking-wider">
-                  {chip.label}
-                </div>
-                <div className="text-[10px] text-slate-400 line-clamp-1 font-mono">
-                  {chip.desc}
-                </div>
-              </div>
-            ))}
+          {/* Highlights Grid */}
+          <div className="pt-6 border-t border-white/10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1">
+              <div className="text-xs font-mono font-bold text-blue-400">Full-Stack Craft</div>
+              <div className="text-xs text-slate-300">Next.js, React, TypeScript, FastAPI, PostgreSQL</div>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1">
+              <div className="text-xs font-mono font-bold text-purple-400">AI & Automation</div>
+              <div className="text-xs text-slate-300">LLM Tool Integration, Whisper Voice, Local Models (Ollama)</div>
+            </div>
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5 space-y-1">
+              <div className="text-xs font-mono font-bold text-emerald-400">Work Ethic</div>
+              <div className="text-xs text-slate-300">Transparent updates, rapid prototyping, clean git history</div>
+            </div>
           </div>
         </div>
       </div>

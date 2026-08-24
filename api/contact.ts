@@ -193,7 +193,24 @@ export default async function handler(req: Request): Promise<Response> {
       );
     }
 
-    const body = await req.json().catch(() => ({}));
+    // 5. Read body text and enforce payload size limits (handles missing Content-Length / chunked transfer)
+    const rawBody = await req.text().catch(() => '');
+    if (rawBody.length > MAX_PAYLOAD_BYTES) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Payload exceeds maximum limit (10KB).' }),
+        { status: 413, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
+
+    let body: Record<string, unknown> = {};
+    try {
+      body = rawBody ? JSON.parse(rawBody) : {};
+    } catch {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid JSON payload format.' }),
+        { status: 400, headers: { 'Content-Type': 'application/json' } }
+      );
+    }
 
     // 6. Honeypot check: If filled by automated bot, return 200 silently
     if (body.honeypot && typeof body.honeypot === 'string' && body.honeypot.trim().length > 0) {

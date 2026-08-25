@@ -66,7 +66,7 @@ async function verifyTurnstile(token: string, secretKey: string, ip: string): Pr
       },
     });
 
-    const outcome = await res.json();
+    const outcome = (await res.json()) as { success?: boolean };
     return Boolean(outcome.success);
   } catch (error) {
     console.error('Turnstile verification error:', error);
@@ -84,8 +84,8 @@ async function checkRateLimit(ip: string, isProduction: boolean): Promise<{ allo
       const res = await fetch(`${upstashUrl}/incr/${key}`, {
         headers: { Authorization: `Bearer ${upstashToken}` },
       });
-      const data = await res.json();
-      const count = data.result;
+      const data = (await res.json()) as { result?: number };
+      const count = typeof data.result === 'number' ? data.result : 1;
 
       if (count === 1) {
         await fetch(`${upstashUrl}/expire/${key}/600`, {
@@ -223,7 +223,7 @@ export default async function handler(req: Request): Promise<Response> {
     // 7. Schema validation with Zod
     const validationResult = contactSchema.safeParse(body);
     if (!validationResult.success) {
-      const firstError = validationResult.error.errors[0]?.message || 'Invalid input parameters';
+      const firstError = validationResult.error.issues[0]?.message || 'Invalid input parameters';
       return new Response(
         JSON.stringify({ success: false, error: firstError }),
         { status: 400, headers: { 'Content-Type': 'application/json' } }
